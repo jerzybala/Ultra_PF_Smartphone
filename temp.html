@@ -1,0 +1,155 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+            <script src="lib/bindings/utils.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+        
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+          crossorigin="anonymous"
+        />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"
+        ></script>
+
+
+        <center>
+          <h1></h1>
+        </center>
+        <style type="text/css">
+
+             #mynetwork {
+                 width: 1500px;
+                 height: 2000px;
+                 background-color: #ffffff;
+                 border: 1px solid lightgray;
+                 position: relative;
+                 float: left;
+             }
+
+             
+
+             
+
+             
+        </style>
+    </head>
+
+
+    <body>
+        <div class="card" style="width: 100%">
+            
+            
+            <div id="mynetwork" class="card-body"></div>
+        </div>
+
+        
+        
+
+        <script type="text/javascript">
+
+              // initialize global variables.
+              var edges;
+              var nodes;
+              var allNodes;
+              var allEdges;
+              var nodeColors;
+              var originalNodes;
+              var network;
+              var container;
+              var options, data;
+              var filter = {
+                  item : '',
+                  property : '',
+                  value : []
+              };
+
+              
+
+              
+
+              // This method is responsible for drawing the graph, returns the drawn network
+              function drawGraph() {
+                  var container = document.getElementById('mynetwork');
+
+                  
+
+                  // parsing and collecting nodes and edges from the python
+                  nodes = new vis.DataSet([{"color": "#97c2fc", "id": "Self Worth \u0026 Confidence", "label": "Self Worth \u0026 Confidence", "shape": "dot", "size": 10, "weight": null}, {"color": "#97c2fc", "id": "Self-Image", "label": "Self-Image", "shape": "dot", "size": 10, "weight": null}, {"color": "#97c2fc", "id": "Creativity \u0026 Problem Solving", "label": "Creativity \u0026 Problem Solving", "shape": "dot", "size": 10, "weight": null}, {"color": "#97c2fc", "id": "Ability to Learn", "label": "Ability to Learn", "shape": "dot", "size": 10, "weight": null}, {"color": "#97c2fc", "id": "Coordination", "label": "Coordination", "shape": "dot", "size": 10, "weight": null}, {"color": "#97c2fc", "id": "Relationships with others", "label": "Relationships with others", "shape": "dot", "size": 10, "weight": null}, {"color": "#97c2fc", "id": "Social interactions \u0026 Cooperation", "label": "Social interactions \u0026 Cooperation", "shape": "dot", "size": 10, "weight": null}, {"color": "#97c2fc", "id": "Emotional Resilience", "label": "Emotional Resilience", "shape": "dot", "size": 10, "weight": null}, {"color": "#97c2fc", "id": "Emotional Control", "label": "Emotional Control", "shape": "dot", "size": 10, "weight": null}, {"color": "#97c2fc", "id": "Planning \u0026 Organisation", "label": "Planning \u0026 Organisation", "shape": "dot", "size": 10, "weight": null}, {"color": "#97c2fc", "id": "Decision-making \u0026 Risk-taking", "label": "Decision-making \u0026 Risk-taking", "shape": "dot", "size": 10, "weight": null}, {"color": "#97c2fc", "id": "Speech \u0026 Language", "label": "Speech \u0026 Language", "shape": "dot", "size": 10, "weight": null}, {"color": "#97c2fc", "id": "Energy Level", "label": "Energy Level", "shape": "dot", "size": 10, "weight": null}, {"color": "#97c2fc", "id": "Focus \u0026 Concentration", "label": "Focus \u0026 Concentration", "shape": "dot", "size": 10, "weight": null}, {"color": "#97c2fc", "id": "Curiosity, Interest \u0026 Enthusiasm", "label": "Curiosity, Interest \u0026 Enthusiasm", "shape": "dot", "size": 10, "weight": null}, {"color": "#97c2fc", "id": "Sleep Quality", "label": "Sleep Quality", "shape": "dot", "size": 10, "weight": null}, {"color": "#97c2fc", "id": "Stability \u0026 Calmness", "label": "Stability \u0026 Calmness", "shape": "dot", "size": 10, "weight": null}, {"color": "#97c2fc", "id": "Self Control \u0026 Impulsivity", "label": "Self Control \u0026 Impulsivity", "shape": "dot", "size": 10, "weight": null}, {"color": "#97c2fc", "id": "Sensory Sensitivity", "label": "Sensory Sensitivity", "shape": "dot", "size": 10, "weight": null}, {"color": "#97c2fc", "id": "Empathy", "label": "Empathy", "shape": "dot", "size": 10, "weight": null}, {"color": "#97c2fc", "id": "Outlook \u0026 Optimism", "label": "Outlook \u0026 Optimism", "shape": "dot", "size": 10, "weight": null}, {"color": "#97c2fc", "id": "Appetite Regulation", "label": "Appetite Regulation", "shape": "dot", "size": 10, "weight": null}, {"color": "#97c2fc", "id": "Sexual Satisfaction", "label": "Sexual Satisfaction", "shape": "dot", "size": 10, "weight": null}, {"color": "#97c2fc", "id": "Selective Attention", "label": "Selective Attention", "shape": "dot", "size": 10, "weight": null}, {"color": "#97c2fc", "id": "Memory", "label": "Memory", "shape": "dot", "size": 10, "weight": null}, {"color": "#97c2fc", "id": "Fear \u0026 Anxiety", "label": "Fear \u0026 Anxiety", "shape": "dot", "size": 10, "weight": null}, {"color": "#97c2fc", "id": "Restlessness \u0026 Hyperactivity", "label": "Restlessness \u0026 Hyperactivity", "shape": "dot", "size": 10, "weight": null}, {"color": "#97c2fc", "id": "Unwanted, Strange or Obsessive Thoughts", "label": "Unwanted, Strange or Obsessive Thoughts", "shape": "dot", "size": 10, "weight": null}, {"color": "#97c2fc", "id": "Avoidance \u0026 Withdrawal", "label": "Avoidance \u0026 Withdrawal", "shape": "dot", "size": 10, "weight": null}, {"color": "#97c2fc", "id": "Mood Swings", "label": "Mood Swings", "shape": "dot", "size": 10, "weight": null}, {"color": "#97c2fc", "id": "Sense of being detached from reality", "label": "Sense of being detached from reality", "shape": "dot", "size": 10, "weight": null}, {"color": "#97c2fc", "id": "Anger \u0026 Irritability", "label": "Anger \u0026 Irritability", "shape": "dot", "size": 10, "weight": null}, {"color": "#97c2fc", "id": "Aggression Towards Others", "label": "Aggression Towards Others", "shape": "dot", "size": 10, "weight": null}, {"color": "#97c2fc", "id": "Experience of Pain", "label": "Experience of Pain", "shape": "dot", "size": 10, "weight": null}, {"color": "#97c2fc", "id": "Physical Health Issues", "label": "Physical Health Issues", "shape": "dot", "size": 10, "weight": null}, {"color": "#97c2fc", "id": "Guilt \u0026 Blame", "label": "Guilt \u0026 Blame", "shape": "dot", "size": 10, "weight": null}, {"color": "#97c2fc", "id": "Feelings of Sadness, Distress or Hopelessness", "label": "Feelings of Sadness, Distress or Hopelessness", "shape": "dot", "size": 10, "weight": null}, {"color": "#97c2fc", "id": "Traumatic Flashbacks", "label": "Traumatic Flashbacks", "shape": "dot", "size": 10, "weight": null}, {"color": "#97c2fc", "id": "Repetitive or Compulsive Actions", "label": "Repetitive or Compulsive Actions", "shape": "dot", "size": 10, "weight": null}, {"color": "#97c2fc", "id": "Nightmares", "label": "Nightmares", "shape": "dot", "size": 10, "weight": null}, {"color": "#97c2fc", "id": "Hallucinations", "label": "Hallucinations", "shape": "dot", "size": 10, "weight": null}, {"color": "#97c2fc", "id": "Addictions", "label": "Addictions", "shape": "dot", "size": 10, "weight": null}, {"color": "#97c2fc", "id": "Suicidal Thoughts or Intentions", "label": "Suicidal Thoughts or Intentions", "shape": "dot", "size": 10, "weight": null}, {"color": "#97c2fc", "id": "Confusion or Slowed Thinking", "label": "Confusion or Slowed Thinking", "shape": "dot", "size": 10, "weight": null}, {"color": "#97c2fc", "id": "Susceptibility to Infections", "label": "Susceptibility to Infections", "shape": "dot", "size": 10, "weight": null}, {"color": "#97c2fc", "id": "Drive \u0026 Motivation", "label": "Drive \u0026 Motivation", "shape": "dot", "size": 10, "weight": null}]);
+                  edges = new vis.DataSet([{"arrows": "to", "from": "Self Worth \u0026 Confidence", "to": "Self-Image", "width": 1}, {"arrows": "to", "from": "Creativity \u0026 Problem Solving", "to": "Self Worth \u0026 Confidence", "width": 1}, {"arrows": "to", "from": "Ability to Learn", "to": "Coordination", "width": 1}, {"arrows": "to", "from": "Relationships with others", "to": "Social interactions \u0026 Cooperation", "width": 1}, {"arrows": "to", "from": "Emotional Resilience", "to": "Emotional Control", "width": 1}, {"arrows": "to", "from": "Emotional Resilience", "to": "Relationships with others", "width": 1}, {"arrows": "to", "from": "Planning \u0026 Organisation", "to": "Decision-making \u0026 Risk-taking", "width": 1}, {"arrows": "to", "from": "Social interactions \u0026 Cooperation", "to": "Speech \u0026 Language", "width": 1}, {"arrows": "to", "from": "Energy Level", "to": "Focus \u0026 Concentration", "width": 1}, {"arrows": "to", "from": "Energy Level", "to": "Curiosity, Interest \u0026 Enthusiasm", "width": 1}, {"arrows": "to", "from": "Energy Level", "to": "Sleep Quality", "width": 1}, {"arrows": "to", "from": "Emotional Control", "to": "Stability \u0026 Calmness", "width": 1}, {"arrows": "to", "from": "Emotional Control", "to": "Self Control \u0026 Impulsivity", "width": 1}, {"arrows": "to", "from": "Focus \u0026 Concentration", "to": "Planning \u0026 Organisation", "width": 1}, {"arrows": "to", "from": "Sensory Sensitivity", "to": "Empathy", "width": 1}, {"arrows": "to", "from": "Self-Image", "to": "Outlook \u0026 Optimism", "width": 1}, {"arrows": "to", "from": "Self-Image", "to": "Appetite Regulation", "width": 1}, {"arrows": "to", "from": "Self-Image", "to": "Sexual Satisfaction", "width": 1}, {"arrows": "to", "from": "Outlook \u0026 Optimism", "to": "Energy Level", "width": 1}, {"arrows": "to", "from": "Outlook \u0026 Optimism", "to": "Emotional Resilience", "width": 1}, {"arrows": "to", "from": "Outlook \u0026 Optimism", "to": "Selective Attention", "width": 1}, {"arrows": "to", "from": "Selective Attention", "to": "Sensory Sensitivity", "width": 1}, {"arrows": "to", "from": "Selective Attention", "to": "Ability to Learn", "width": 1}, {"arrows": "to", "from": "Selective Attention", "to": "Memory", "width": 1}, {"arrows": "to", "from": "Fear \u0026 Anxiety", "to": "Restlessness \u0026 Hyperactivity", "width": 1}, {"arrows": "to", "from": "Unwanted, Strange or Obsessive Thoughts", "to": "Avoidance \u0026 Withdrawal", "width": 1}, {"arrows": "to", "from": "Unwanted, Strange or Obsessive Thoughts", "to": "Mood Swings", "width": 1}, {"arrows": "to", "from": "Unwanted, Strange or Obsessive Thoughts", "to": "Fear \u0026 Anxiety", "width": 1}, {"arrows": "to", "from": "Unwanted, Strange or Obsessive Thoughts", "to": "Sense of being detached from reality", "width": 1}, {"arrows": "to", "from": "Mood Swings", "to": "Anger \u0026 Irritability", "width": 1}, {"arrows": "to", "from": "Anger \u0026 Irritability", "to": "Aggression Towards Others", "width": 1}, {"arrows": "to", "from": "Experience of Pain", "to": "Physical Health Issues", "width": 1}, {"arrows": "to", "from": "Guilt \u0026 Blame", "to": "Feelings of Sadness, Distress or Hopelessness", "width": 1}, {"arrows": "to", "from": "Traumatic Flashbacks", "to": "Guilt \u0026 Blame", "width": 1}, {"arrows": "to", "from": "Traumatic Flashbacks", "to": "Repetitive or Compulsive Actions", "width": 1}, {"arrows": "to", "from": "Traumatic Flashbacks", "to": "Nightmares", "width": 1}, {"arrows": "to", "from": "Repetitive or Compulsive Actions", "to": "Hallucinations", "width": 1}, {"arrows": "to", "from": "Repetitive or Compulsive Actions", "to": "Addictions", "width": 1}, {"arrows": "to", "from": "Feelings of Sadness, Distress or Hopelessness", "to": "Unwanted, Strange or Obsessive Thoughts", "width": 1}, {"arrows": "to", "from": "Feelings of Sadness, Distress or Hopelessness", "to": "Suicidal Thoughts or Intentions", "width": 1}, {"arrows": "to", "from": "Feelings of Sadness, Distress or Hopelessness", "to": "Confusion or Slowed Thinking", "width": 1}, {"arrows": "to", "from": "Feelings of Sadness, Distress or Hopelessness", "to": "Experience of Pain", "width": 1}, {"arrows": "to", "from": "Physical Health Issues", "to": "Susceptibility to Infections", "width": 1}]);
+
+                  nodeColors = {};
+                  allNodes = nodes.get({ returnType: "Object" });
+                  for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
+                  }
+                  allEdges = edges.get({ returnType: "Object" });
+                  // adding nodes and edges to the graph
+                  data = {nodes: nodes, edges: edges};
+
+                  var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": true,
+            "type": "dynamic"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+
+                  
+
+
+                  
+
+                  network = new vis.Network(container, data, options);
+
+                  
+
+                  
+
+                  
+
+
+                  
+
+                  return network;
+
+              }
+              drawGraph();
+        </script>
+    </body>
+</html>
