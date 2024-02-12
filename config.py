@@ -552,6 +552,9 @@ set10 = [
 
  'Age',
  'Biological Sex',
+ 'Education',
+ 'Employment',
+
 
 
 #  'Different gender from biological sex',
@@ -564,13 +567,13 @@ set10 = [
 #  'State',
 #  'Place of living',
 #  'City',
-#  'Education',
-#  'Employment',
+ 
 #  'Profession/Employment Sector',
 #  'ARCHIVED: Job Role',
 
 
  'Household Income',
+ 'Language',
 
 
 #  'ARCHIVED: Productivity Benchmarking (unable to work)',
