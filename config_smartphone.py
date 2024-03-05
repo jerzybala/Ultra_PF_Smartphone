@@ -6,10 +6,10 @@ smartphone_set1 = [
 
 #  'Unnamed: 0',
 
- 'Language',
- 'Start Date (UTC)',
- 'Submit Date (UTC)',
- 'Time to completion',
+#  'Language',
+#  'Start Date (UTC)',
+#  'Submit Date (UTC)',
+#  'Time to completion',
  
     
 
@@ -170,7 +170,7 @@ smartphone_set1 = [
  'Smartphone usage during class hours',
  'Smartphone usage during break',
 
- 
+
  'Age of laptop usage required by school',
  'Laptop usage for non-learning activities',
 
@@ -210,9 +210,6 @@ smartphone_set1 = [
 #  'Admin Use 4',
 #  'Admin Use 5',
 #  'Repeat identifier',
-
-
- 'MHQ_Sign',
 
 
  'Sudden or premature death of a loved one',
